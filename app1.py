@@ -11,7 +11,7 @@ load_dotenv()
 
 # --------- SIDEBAR EXPLANATION ---------
 with st.sidebar:
-    st.image("https://cdn-icons-png.flaticon.com/512/599/599305.png", width=60)
+    st.image("https://www.andersonprocess.com/wp-content/uploads/2022/02/pump_maintenance-300x200.jpeg", width=60)
     st.title("MDP Pump Maintenance")
     st.markdown("---")
     st.markdown("#### What does this app do?")
