@@ -60,7 +60,7 @@ data_option = st.radio(
 df = None
 
 if data_option == "Use example dataset":
-    example_path = "https://github.com/abh2050/pump_predictive_maintenance_using_Markov_decision_gemini/blob/main/synthetic_pump_data.csv"
+    example_path = "https://raw.githubusercontent.com/abh2050/pump_predictive_maintenance_using_Markov_decision_gemini/main/synthetic_pump_data.csv"
     
     if os.path.exists(example_path):
         # Load example data automatically without requiring button click
