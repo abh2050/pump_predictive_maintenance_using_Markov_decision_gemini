@@ -61,22 +61,31 @@ df = None
 
 if data_option == "Use example dataset":
     example_path = "https://raw.githubusercontent.com/abh2050/pump_predictive_maintenance_using_Markov_decision_gemini/main/synthetic_pump_data.csv"
-
-    
-    if os.path.exists(example_path):
-        # Load example data automatically without requiring button click
+    try:
         df = pd.read_csv(example_path, parse_dates=["timestamp"])
         st.success(f"Loaded example dataset with {len(df)} records")
         st.write("Sample of the example data:")
         st.dataframe(df.head())
-    else:
-        st.error(f"Example file not found at {example_path}. Please check the file path.")
+    except Exception as e:
+        st.error(f"Example file could not be loaded from:\n{example_path}\n\nError: {e}")
+        # Fallback: generate synthetic data
+        import datetime
+        demo_rows = 100
+        dates = pd.date_range(datetime.datetime.today(), periods=demo_rows, freq="H")
+        df = pd.DataFrame({
+            "timestamp": dates,
+            "vibration": np.random.rand(demo_rows),
+            "temperature": np.random.normal(60, 3, demo_rows),
+            "pressure": np.random.normal(30, 2, demo_rows),
+            "flow_rate": np.random.normal(5, 0.5, demo_rows)
+        })
+        st.warning("Using synthetic demo data instead.")
+        st.dataframe(df.head())
 else:
     uploaded = st.file_uploader(
         "Choose a CSV file (columns: timestamp, vibration, temperature, pressure, flow_rate)", 
         type=["csv"]
     )
-    
     if uploaded:
         try:
             df = pd.read_csv(uploaded, parse_dates=["timestamp"])
